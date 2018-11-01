@@ -44,6 +44,10 @@ class DBConnector:
         sql = "SELECT * FROM requests"
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
+        # for row in result:
+        #     row["last_updated_on"] = str(row["last_updated_on"])
+        #     row["created"] = str(row["created"])
+
         requests = json.dumps(result , default=str)
         return requests
     
