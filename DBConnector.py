@@ -5,11 +5,11 @@ class DBConnector:
 
     def __init__(self, host, user, password, db_name):
         self.connection = pymysql.connect(host=host,
-                             user=user,
-                             password=password,
-                             db=db_name,
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
+                            user=user,
+                            password=password,
+                            db=db_name,
+                            charset='utf8mb4',
+                            cursorclass=pymysql.cursors.DictCursor)
         self.cursor=self.connection.cursor()
 
     def inline_comments(self):

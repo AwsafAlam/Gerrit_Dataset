@@ -6,22 +6,27 @@ from DBConnector import DBConnector
 dbconnector = DBConnector('localhost','root','','gerrit_test')
 
 requests = dbconnector.requests()
-request_detail = dbconnector.request_detail()
+request_details = dbconnector.request_detail()
 
 def search(req_id):
-    for p in request_detail:
+    for p in request_details:
         if p['request_id'] == req_id:
             return p
 
-finalJSON = {}
+def MakeRequestDict(req_id):
+    for request_detail in request_details:
+        if request_detail["request_id"] == req_id:
+            return {'change_id': request_detail["change_id"]}
 
-for row in requests:
-    finalJSON["request_id"] = {
-        "change_id" : search(row)
-    }
+finalJSON = []
 
-    # print(row["request_id"])
-     
+for request in requests:
+    dict = MakeRequestDict(request["request_id"])
+    finalJSON.append({request["request_id"]: dict}) 
+
+
+
+
 
 y = json.dumps(finalJSON)
 print(y)
