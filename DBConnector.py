@@ -44,19 +44,21 @@ class DBConnector:
         sql = "SELECT * FROM requests"
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
-        # for row in result:
-        #     row["last_updated_on"] = str(row["last_updated_on"])
-        #     row["created"] = str(row["created"])
+        for row in result:
+            row["last_updated_on"] = str(row["last_updated_on"])
+            row["created"] = str(row["created"])
 
-        requests = json.dumps(result , default=str)
-        return requests
+        # requests = json.dumps(result , default=str)
+        # return requests
+        return result
     
     def request_detail(self):
         sql = "SELECT * FROM request_detail"
         self.cursor.execute(sql)
         result = self.cursor.fetchall()
-        request_detail = json.dumps(result , default=str)
-        return request_detail
+        # request_detail = json.dumps(result , default=str)
+        # return request_detail
+        return result
     
     def reviews(self):
         sql = "SELECT * FROM reviews"
