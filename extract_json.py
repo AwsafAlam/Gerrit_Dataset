@@ -16,15 +16,19 @@ def search(req_id):
 def MakeRequestDict(req_id):
     for request_detail in request_details:
         if request_detail["request_id"] == req_id:
-            return {'change_id': request_detail["change_id"]}
+            return {'change_id': request_detail["change_id"],
+                    'request_id': req_id
+            }
+        else:
+            return {'change_id': 'Not found'}
+
 
 finalJSON = []
+## Here we will be getting list of 12k dict, which will be converted into JSON Array
 
 for request in requests:
     dict = MakeRequestDict(request["request_id"])
     finalJSON.append({request["request_id"]: dict}) 
-
-
 
 
 
