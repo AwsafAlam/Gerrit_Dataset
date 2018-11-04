@@ -20,10 +20,10 @@ def search(req_id):
         if p['request_id'] == req_id:
             return p
 
-def getInlineComments(patch_id):
+def getInlineComments(patch_id, req_id):
 	I = {}
 	for comment in inline_comments:
-			if comment["patchset_id"] == patch_id:
+			if comment["patchset_id"] == patch_id and comment["request_id"] == req_id:
 					I[comment["file_name"]] = {
 						'comment_id': comment["comment_id"],
 						'in_reply_to': comment["in_reply_to"],
@@ -81,7 +81,7 @@ def getPatches(patch_id , req_id):
 				'created':  patch["created"],
 				'committed':  patch["committed"],
 				'patch_file_details': getPatchDetails(patch_id , req_id),
-				'inline_comments': getInlineComments(patch_id),
+				'inline_comments': getInlineComments(patch_id , req_id),
 				'reviews': getReviews(req_id)
 			}
 	return p
@@ -111,13 +111,13 @@ def MakeRequestDict(req_id):
 finalJSON = {}
 ## Here we will be getting list of 12k dict, which will be converted into JSON Array
 
-finalJSON[1] = MakeRequestDict(1)
+# finalJSON[1] = MakeRequestDict(1)
 
-# for request in requests:
-	# finalJSON[request["request_id"]] = MakeRequestDict(request["request_id"])
+for request in requests:
+	finalJSON[request["request_id"]] = MakeRequestDict(request["request_id"])
 	
-	# if len(finalJSON[request["request_id"]]) == 0:
-	# 	finalJSON.pop(request["request_id"])
+	if len(finalJSON[request["request_id"]]) == 0:
+		finalJSON.pop(request["request_id"])
 
 
 with open('data.json', 'w') as outfile:  
