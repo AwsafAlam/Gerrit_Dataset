@@ -15,11 +15,6 @@ review_comments = dbconnector.review_comments()
 reviews = dbconnector.reviews()
 
 
-def search(req_id):
-    for p in request_details:
-        if p['request_id'] == req_id:
-            return p
-
 def getInlineComments(patch_id, req_id):
 	I = {}
 	for comment in inline_comments:
@@ -63,6 +58,7 @@ def getPatchDetails(patch_id , req_id):
 				'insertions': patch_detail["insertions"],
 				'deletions': patch_detail["deletions"]
 			}
+			print(D[patch_detail["file_name"]])
 	return D
 
 def getPatches(patch_id , req_id):
